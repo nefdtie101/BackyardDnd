@@ -1,8 +1,9 @@
 ﻿using BackyardDndApi.Model.Enum;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackyardDndApi.Model
 {
-    public class User
+    public class User 
     {
         public int UserId { get; set; }
         public string UserName { get; set; }
