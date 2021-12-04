@@ -8,7 +8,7 @@ namespace Repository
     {
         public string Test(User user)
         {
-            string Output = "Toets!";
+            string Output = "Test!";
             return Output;
         }
 
