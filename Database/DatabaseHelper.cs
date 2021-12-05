@@ -46,6 +46,7 @@ namespace Database
                 SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("Sql"));
                 sqlConnection.Open();
                 SqlCommand sqlCommand = new SqlCommand(proc ,sqlConnection);
+                sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.Parameters.AddRange(p);
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(sqlCommand);
                 DataTable dt = new DataTable();

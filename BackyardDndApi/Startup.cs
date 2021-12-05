@@ -37,6 +37,8 @@ namespace BackyardDndApi
             
             //database
             services.AddScoped<DataBaseHelper>();
+            services.AddScoped<Converter>();
+            
             
             //Repositories
             services.AddScoped<ICreateUserInterface,CreateUser>();

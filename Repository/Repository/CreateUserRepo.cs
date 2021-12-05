@@ -10,10 +10,12 @@ namespace Repository.Repository
     public class CreateUser : ICreateUserInterface
     {
         private readonly DataBaseHelper _dataBaseHelper;
+        private readonly Converter _converter;
 
-        public CreateUser(DataBaseHelper data)
+        public CreateUser(DataBaseHelper data, Converter conv)
         {
             _dataBaseHelper = data;
+            _converter = conv;
         }
         public void AddUser(User user)
         {
@@ -28,6 +30,24 @@ namespace Repository.Repository
                 var res = _dataBaseHelper.TriggerStoredProcNoTable("spAddNewUser", dataParams);
 
 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public User GetUser(string Username)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@Username", Username),
+                };
+                var res = _dataBaseHelper.TriggerStoredProc("GetUser", dataParams);
+                return _converter.ConvertUserModel(res);
             }
             catch (Exception e)
             {

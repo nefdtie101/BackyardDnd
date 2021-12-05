@@ -5,14 +5,14 @@ using Repository.Interface;
 
 namespace BackyardDndApi.Controllers
 {
-    
+
     public class CreateUserController : Controller
     {
         private readonly ICreateUserInterface _createUserInterface;
 
         public CreateUserController(
             ICreateUserInterface createUserInterface
-            )
+        )
         {
             _createUserInterface = createUserInterface;
         }
@@ -23,6 +23,14 @@ namespace BackyardDndApi.Controllers
         {
             _createUserInterface.AddUser(user);
             return Ok("hierdie Kak werk");
+        }
+
+        [HttpGet]
+        [Route("GetUser")]
+        public IActionResult GetUser(string Username)
+        {
+            var res = _createUserInterface.GetUser(Username);
+            return Json(User);
         }
     }
 }
