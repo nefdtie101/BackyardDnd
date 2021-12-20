@@ -1,5 +1,8 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Net;
 using BackyardDndApi.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Interface;
 
@@ -40,5 +43,13 @@ namespace BackyardDndApi.Controllers
                  
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Authorize")]
+        public IEnumerable<string> Get() => new string[]
+        {
+            "John Doe", "Jane Doe"
+        };
     }
 }
