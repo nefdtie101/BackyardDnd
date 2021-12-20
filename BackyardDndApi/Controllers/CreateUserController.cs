@@ -27,10 +27,18 @@ namespace BackyardDndApi.Controllers
 
         [HttpGet]
         [Route("GetUser")]
-        public IActionResult GetUser(string Username)
+        public IActionResult Login(string Username, string Password)
         {
-            var res = _createUserInterface.GetUser(Username);
-            return Json(User);
+            bool bTrue = _createUserInterface.Login(Username, Password);
+            if (bTrue == true)
+            {
+                return Ok("Logged In");
+            }
+            else
+            {
+                return Ok("Login Failed!");
+                 
+            }
         }
     }
 }
