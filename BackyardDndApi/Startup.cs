@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Repository.Interface;
+using Repository.Repository;
 
 namespace BackyardDndApi
 {
@@ -31,6 +34,14 @@ namespace BackyardDndApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "BackyardDndApi", Version = "v1"});
             });
+            
+            //database
+            services.AddScoped<DataBaseHelper>();
+            services.AddScoped<Converter>();
+            
+            
+            //Repositories
+            services.AddScoped<ICreateUserInterface,CreateUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,6 +61,8 @@ namespace BackyardDndApi
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            
+            
         }
     }
 }
