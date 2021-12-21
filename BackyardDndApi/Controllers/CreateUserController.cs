@@ -43,6 +43,14 @@ namespace BackyardDndApi.Controllers
                  
             }
         }
+        
+        [HttpPost]
+        [Route("Create Player")]
+        public IActionResult SavePlayer([FromBody] PlayerForm pForm)
+        {
+            _createUserInterface.AddPlayer(pForm);
+            return Ok("hierdie Kak werk");
+        }
 
         [HttpGet]
         [Authorize]
