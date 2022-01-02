@@ -36,6 +36,8 @@ namespace BackyardDndApi
             {
                 builder.AllowAnyMethod();
                 builder.AllowAnyOrigin();
+                builder.AllowAnyHeader();
+
 
             }));
             services.AddAuthentication(options =>
@@ -47,13 +49,10 @@ namespace BackyardDndApi
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-
-                        ValidIssuer = "http://localhost:5000/swagger/index.html",
-                        ValidAudience = "http://localhost:5000/swagger/index.html",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@1234"))
                     };
                 });
