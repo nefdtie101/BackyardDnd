@@ -30,10 +30,19 @@ namespace BackyardDndApi.Controllers
         }
 
         [HttpGet]
-        [Route("GetUser")]
-        public IActionResult Login(string Username, string Password)
+        [Route("Test")]
+        public IActionResult Test()
         {
-            bool bTrue = _createUserInterface.Login(Username, Password);
+            var res = new Test();
+            res.testString = "bla bla";
+            return Ok(res);
+        }
+
+        [HttpGet]
+        [Route("GetUser")]
+        public IActionResult Login(User user)
+        {
+            bool bTrue = _createUserInterface.Login(user);
             if (bTrue == true)
             {
                 return Ok("Logged In");
@@ -44,21 +53,13 @@ namespace BackyardDndApi.Controllers
                  
             }
         }
-        
-        [HttpPost]
+
+        /*[HttpPost]
         [Route("Create Player")]
         public IActionResult SavePlayer([FromBody] PlayerForm pForm)
         {
             _createUserInterface.AddPlayer(pForm);
             return Ok("hierdie Kak werk");
-        }
-
-        [HttpGet]
-        [Authorize]
-        [Route("Authorize")]
-        public IEnumerable<string> Get() => new string[]
-        {
-            "John Doe", "Jane Doe"
-        };
+        }*/
     }
 }

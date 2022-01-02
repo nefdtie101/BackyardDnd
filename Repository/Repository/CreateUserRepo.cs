@@ -35,7 +35,9 @@ namespace Repository.Repository
                 throw;
             }
         }
+
         
+
         public void AddPlayer(PlayerForm pForm)
         {
             try
@@ -103,34 +105,14 @@ namespace Repository.Repository
                 throw;
             }
         }
-
-        public User GetUser(string Username, string Password)
+        public bool Login(User user)
         {
             try
             {
                 SqlParameter[] dataParams = new SqlParameter[]
                 {
-                    new SqlParameter("@Username", Username),
-                    new SqlParameter("@Password", Password)
-                };
-                var res = _dataBaseHelper.TriggerStoredProc("GetUser", dataParams);
-                return _converter.ConvertUserModel(res);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
-
-        public bool Login(string Username, string Password)
-        {
-            try
-            {
-                SqlParameter[] dataParams = new SqlParameter[]
-                {
-                    new SqlParameter("@Username", Username),
-                    new SqlParameter("@Password", Password)
+                    new SqlParameter("@Username", user.UserName),
+                    new SqlParameter("@Password", user.Password)
                 };
                 var res = _dataBaseHelper.TriggerStoredProc("spLogin", dataParams);
                 if (res.Rows.Count == 1)
@@ -148,7 +130,5 @@ namespace Repository.Repository
                 throw;
             }
         }
-
-        
     }
 }
