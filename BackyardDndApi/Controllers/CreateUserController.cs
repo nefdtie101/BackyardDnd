@@ -21,6 +21,7 @@ namespace BackyardDndApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("Create User")]
         public IActionResult SaveUser([FromBody] User user)
         {
