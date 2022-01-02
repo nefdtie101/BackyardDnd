@@ -35,6 +35,8 @@ namespace BackyardDndApi
             services.AddCors(o => o.AddPolicy("CorePolicy", builder =>
             {
                 builder.AllowAnyMethod();
+                builder.AllowAnyOrigin();
+
             }));
             services.AddAuthentication(options =>
                 {
@@ -81,7 +83,7 @@ namespace BackyardDndApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackyardDndApi v1"));
             }
 
-            app.UseCors();
+            app.UseCors("CorePolicy");
 
             app.UseHttpsRedirection();
 
