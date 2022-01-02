@@ -1,5 +1,8 @@
-﻿using System.Net;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Net;
 using BackyardDndApi.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Interface;
 
@@ -18,6 +21,7 @@ namespace BackyardDndApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [Route("Create User")]
         public IActionResult SaveUser([FromBody] User user)
         {
@@ -40,5 +44,21 @@ namespace BackyardDndApi.Controllers
                  
             }
         }
+        
+        [HttpPost]
+        [Route("Create Player")]
+        public IActionResult SavePlayer([FromBody] PlayerForm pForm)
+        {
+            _createUserInterface.AddPlayer(pForm);
+            return Ok("hierdie Kak werk");
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("Authorize")]
+        public IEnumerable<string> Get() => new string[]
+        {
+            "John Doe", "Jane Doe"
+        };
     }
 }
