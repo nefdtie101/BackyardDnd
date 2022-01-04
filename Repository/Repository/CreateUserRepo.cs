@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using BackyardDndApi.Model;
 using Database;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.IdentityModel.Tokens;
 using Repository.Interface;
 
 namespace Repository.Repository

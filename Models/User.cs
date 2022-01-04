@@ -1,5 +1,6 @@
 ﻿using BackyardDndApi.Model.Enum;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace BackyardDndApi.Model
 {

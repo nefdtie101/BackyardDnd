@@ -6,6 +6,7 @@ using System.Text;
 using BackyardDndApi.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Repository.Interface;
 
 namespace BackyardDndApi.Controllers
 {
@@ -13,19 +14,28 @@ namespace BackyardDndApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly ICreateUserInterface _createUserInterface;
+
+        public AuthController
+        (
+            ICreateUserInterface createUserInterface
+        )
+        {
+            _createUserInterface = createUserInterface;
+        }
+        
         [HttpPost, Route("Login")]
         public IActionResult Login([FromBody] User user)
         {
-            if (user == null)
-                return BadRequest("Invalid Client Request");
-            if (user.UserName == "johndoe" && user.Password == "def@123")
+            if (_createUserInterface != null && _createUserInterface.Login(user))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@1234"));
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
-                var tokenOptions = new JwtSecurityToken(
+                var tokenOptions = new JwtSecurityToken
+                (
                     claims: new List<Claim>(),
-                    expires: DateTime.Now.AddMinutes(5),
+                    expires: DateTime.Now.AddHours(4),
                     signingCredentials: signingCredentials
                 );
 

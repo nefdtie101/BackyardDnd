@@ -1,9 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
+using System.Text;
 using BackyardDndApi.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Repository.Interface;
 
 namespace BackyardDndApi.Controllers
@@ -33,8 +38,10 @@ namespace BackyardDndApi.Controllers
         [Route("Test")]
         public IActionResult Test()
         {
-            var res = new Test();
-            res.testString = "bla bla";
+            var res = new Test
+            {
+                testString = "bla bla"
+            };
             return Ok(res);
         }
 
@@ -42,16 +49,7 @@ namespace BackyardDndApi.Controllers
         [Route("GetUser")]
         public IActionResult Login(User user)
         {
-            bool bTrue = _createUserInterface.Login(user);
-            if (bTrue == true)
-            {
-                return Ok("Logged In");
-            }
-            else
-            {
-                return Ok("Login Failed!");
-                 
-            }
+            return Ok(_createUserInterface.Login(user) == true ? "Logged In" : "Login Failed!");
         }
 
         /*[HttpPost]
