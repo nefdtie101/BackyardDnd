@@ -51,13 +51,5 @@ namespace BackyardDndApi.Controllers
         {
             return Ok(_createUserInterface.Login(user) == true ? "Logged In" : "Login Failed!");
         }
-
-        /*[HttpPost]
-        [Route("Create Player")]
-        public IActionResult SavePlayer([FromBody] PlayerForm pForm)
-        {
-            _createUserInterface.AddPlayer(pForm);
-            return Ok("hierdie Kak werk");
-        }*/
     }
 }

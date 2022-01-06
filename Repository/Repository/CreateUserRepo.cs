@@ -44,7 +44,7 @@ namespace Repository.Repository
 
         
 
-        public void AddPlayer(PlayerForm pForm)
+        public void AddCharacter(PlayerForm pForm)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace Repository.Repository
                     new SqlParameter("@EquipmentIDs", pForm.EquipmentIDs),
                     new SqlParameter("@PhotoPath", pForm.PhotoPath),
                 };
-                var res = _dataBaseHelper.TriggerStoredProcNoTable("spAddNewPlayer", dataParams);
+                var res = _dataBaseHelper.TriggerStoredProcNoTable("spAddNewCharacter", dataParams);
             }
             catch (Exception e)
             {

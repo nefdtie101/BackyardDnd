@@ -24,7 +24,8 @@ namespace BackyardDndApi.Controllers
             _createUserInterface = createUserInterface;
         }
         
-        [HttpPost, Route("Login")]
+        [HttpPost]
+        [Route("Login")]
         public IActionResult Login([FromBody] User user)
         {
             if (_createUserInterface != null && _createUserInterface.Login(user))
@@ -44,6 +45,22 @@ namespace BackyardDndApi.Controllers
             }
 
             return Unauthorized();
+        }
+        
+        [HttpPost]
+        [Route("Create User")]
+        public IActionResult SaveUser([FromBody] User user)
+        {
+            _createUserInterface.AddUser(user);
+            return Ok("hierdie Kak werk");
+        }
+        
+        [HttpPost]
+        [Route("Create Player")]
+        public IActionResult SavePlayer([FromBody] PlayerForm pForm)
+        {
+            _createUserInterface.AddCharacter(pForm);
+            return Ok("hierdie Kak werk");
         }
     }
 }

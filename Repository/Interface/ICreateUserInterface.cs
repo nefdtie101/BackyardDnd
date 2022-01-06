@@ -6,6 +6,6 @@ namespace Repository.Interface
     {
         public void AddUser(User user);
         public bool Login(User user);
-        public void AddPlayer(PlayerForm pForm);
+        public void AddCharacter(PlayerForm pForm);
     }
 }
