@@ -4,6 +4,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using BackyardDndApi.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Repository.Interface;
@@ -23,7 +25,7 @@ namespace BackyardDndApi.Controllers
         {
             _createUserInterface = createUserInterface;
         }
-        
+
         [HttpPost]
         [Route("Login")]
         public IActionResult Login([FromBody] User user)
@@ -38,15 +40,16 @@ namespace BackyardDndApi.Controllers
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddHours(4),
                     signingCredentials: signingCredentials
+
                 );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { Token = tokenString });
+                return Ok(new {Token = tokenString});
             }
 
             return Unauthorized();
         }
-        
+
         [HttpPost]
         [Route("Create User")]
         public IActionResult SaveUser([FromBody] User user)
@@ -54,13 +57,21 @@ namespace BackyardDndApi.Controllers
             _createUserInterface.AddUser(user);
             return Ok("hierdie Kak werk");
         }
-        
+
         [HttpPost]
         [Route("Create Player")]
         public IActionResult SavePlayer([FromBody] PlayerForm pForm)
         {
             _createUserInterface.AddCharacter(pForm);
             return Ok("hierdie Kak werk");
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("test")]
+        public IActionResult Test()
+        {
+            return Ok("fok");
         }
     }
 }
