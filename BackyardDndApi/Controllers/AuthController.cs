@@ -63,7 +63,23 @@ namespace BackyardDndApi.Controllers
         public IActionResult SavePlayer([FromBody] PlayerForm pForm)
         {
             _createUserInterface.AddCharacter(pForm);
-            return Ok("hierdie Kak werk");
+            return Ok("Player Character Added!");
+        }
+
+        [HttpPost]
+        [Route("Delete Player")]
+        public IActionResult DeletePlayer([FromBody] PlayerForm pForm)
+        {
+            _createUserInterface.DeleteCharacter(pForm);
+            return Ok("Deleted!");
+        }
+        
+        [HttpPost]
+        [Route("Add Admin")]
+        public IActionResult AddAdmin([FromBody] User user)
+        {
+            _createUserInterface.AddAdmin(user);
+            return Ok("Admin Added!");
         }
 
         [HttpGet]

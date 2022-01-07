@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Sockets;
 using System.Security.Claims;
 using System.Text;
 using BackyardDndApi.Model;
@@ -9,6 +10,7 @@ using Database;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32.SafeHandles;
 using Repository.Interface;
 
 namespace Repository.Repository
@@ -129,6 +131,44 @@ namespace Repository.Repository
                 {
                     return false;
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public void DeleteCharacter(PlayerForm pForm)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@idUser", pForm.UserId),
+                    new SqlParameter("@CharacterName", pForm.CharacterName)
+                };
+                var res = _dataBaseHelper.TriggerStoredProc("spDeleteCharacter", dataParams);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
+        public void AddAdmin(User user)
+        {
+            try
+            {
+                user.Role = 0;
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserName", user.UserName),
+                    new SqlParameter("@Password", user.Password),
+                    new SqlParameter("@Role", (int) user.Role)
+                };
+                var res = _dataBaseHelper.TriggerStoredProc("spAddNewUser", dataParams);
             }
             catch (Exception e)
             {

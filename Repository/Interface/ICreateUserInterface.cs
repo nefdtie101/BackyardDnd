@@ -7,5 +7,7 @@ namespace Repository.Interface
         public void AddUser(User user);
         public bool Login(User user);
         public void AddCharacter(PlayerForm pForm);
+        public void DeleteCharacter(PlayerForm pForm);
+        public void AddAdmin(User user);
     }
 }
