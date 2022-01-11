@@ -83,5 +83,48 @@ namespace Repository.Repository
                 throw;
             }
         }
+        
+        public string ShowSubStats(User user)
+        {
+            
+            try
+            {
+                string[] Target =
+                {
+                    "STRSave",
+                    "Athletics", 
+                    "DEXSave",
+                    "Acrobatics",
+                    "SleightOfHand",
+                    "Stealth",
+                    "CONSave",
+                    "INTSave",
+                    "Arcana",
+                    "History",
+                    "Investigation",
+                    "Nature",
+                    "Religion",
+                    "WISSave",
+                    "AnimalHandling",
+                    "Insight",
+                    "Medicine",
+                    "Perception",
+                    "Survival",
+                    "CHASave",
+                    "Deception",
+                    "Intimidation",
+                    "Performance",
+                    "Persuasion"
+                };
+                var res = _dataBaseHelper.ShowValue("spShowSubStats", Target);
+
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
