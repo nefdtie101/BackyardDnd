@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Transactions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
@@ -71,6 +72,41 @@ namespace Database
                 sqlCommand.CommandType = CommandType.StoredProcedure;
                 sqlCommand.Parameters.AddRange(p);
                 int res = sqlCommand.ExecuteNonQuery();
+                sqlConnection.Close();
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
+        public string ShowValue(string proc, string[] Target)
+        {
+            try
+            {
+                var res = "";
+                SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("Sql"));
+
+                using(sqlConnection)
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand(proc,sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                    var dbReader = sqlCommand.ExecuteReader();
+                    while (dbReader.Read())
+                    {
+                        
+                        foreach (var word in Target)
+                        {
+                            var temp = dbReader[word].ToString();
+                            res = res + $"[{temp}]";
+                        }
+                    }
+                    dbReader.Close();
+                }
                 sqlConnection.Close();
                 return res;
             }

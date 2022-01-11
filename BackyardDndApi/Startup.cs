@@ -63,6 +63,7 @@ namespace BackyardDndApi
             
             //Repositories
             services.AddScoped<ICreateUserInterface,CreateUser>();
+            services.AddScoped<IPlayerView,PlayerViewRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

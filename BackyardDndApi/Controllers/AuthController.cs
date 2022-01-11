@@ -17,7 +17,6 @@ namespace BackyardDndApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly ICreateUserInterface _createUserInterface;
-
         public AuthController
         (
             ICreateUserInterface createUserInterface
