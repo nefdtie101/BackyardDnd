@@ -213,6 +213,10 @@ namespace Repository.Repository
                     Modifier = Int32.Parse(res);
                 }
                 FinalRoll = rollOutput + Modifier;
+                if (FinalRoll < 1)
+                {
+                    FinalRoll = 1;
+                }
                 return "You rolled: " + rollOutput.ToString() + "\nYour " + Stat + " modifier: " + Modifier + "\nFinal Amount: " + FinalRoll.ToString();
             }
             catch (Exception e)
