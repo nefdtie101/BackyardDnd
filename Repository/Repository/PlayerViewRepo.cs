@@ -126,5 +126,100 @@ namespace Repository.Repository
                 throw;
             }
         }
+
+        public string Roll(User user, int Roll, string Stat)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@Stat", Stat),
+                    new SqlParameter("@Target", user.UserId.ToString())
+                };
+                var res = _dataBaseHelper.ShowModifier("spShowModifier", dataParams);
+                Random Dice = new Random();
+                int rollOutput = Dice.Next(1, Roll);
+                int FinalRoll;
+                var Modifier = 0;
+                if (Stat is "STR" or "DEX" or "CON" or "INTellegence" or "WIS" or "CHA")
+                {
+                    switch (Int32.Parse(res)) 
+                    {
+                        case 1:
+                            Modifier = -5;
+                            break;
+                        case 2:
+                            Modifier = -4;
+                            break;
+                        case 3:
+                            Modifier = -4;
+                            break;
+                        case 4:
+                            Modifier = -3;
+                            break;
+                        case 5:
+                            Modifier = -3;
+                            break;
+                        case 6:
+                            Modifier = -2;
+                            break;
+                        case 7:
+                            Modifier = -2;
+                            break;
+                        case 8:
+                            Modifier = -1;
+                            break;
+                        case 9:
+                            Modifier = -1;
+                            break;
+                        case 10:
+                            Modifier = 0;
+                            break;
+                        case 11:
+                            Modifier = 0;
+                            break;
+                        case 12:
+                            Modifier = 1;
+                            break;
+                        case 13:
+                            Modifier = 1;
+                            break;
+                        case 14:
+                            Modifier = 2;
+                            break;
+                        case 15:
+                            Modifier = 2;
+                            break;
+                        case 16:
+                            Modifier = 3;
+                            break;
+                        case 17:
+                            Modifier = 3;
+                            break;
+                        case 18:
+                            Modifier = 4;
+                            break;
+                        case 19:
+                            Modifier = 4;
+                            break;
+                        case 20:
+                            Modifier = 5;
+                            break;
+                    }
+                    FinalRoll = rollOutput + Modifier;
+                }
+                else
+                {
+                    Modifier = Int32.Parse(res);
+                }
+                FinalRoll = rollOutput + Modifier;
+                return "You rolled: " + rollOutput.ToString() + "\nYour " + Stat + " modifier: " + Modifier + "\nFinal Amount: " + FinalRoll.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

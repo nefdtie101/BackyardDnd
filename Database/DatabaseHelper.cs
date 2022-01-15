@@ -116,7 +116,36 @@ namespace Database
                 throw;
             }
         }
+        
+        public string ShowModifier(string proc, SqlParameter[] p)
+        {
+            try
+            {
+                string res = "";
+                SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("Sql"));
 
+                using(sqlConnection)
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand(proc,sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddRange(p);
+                    var dbReader = sqlCommand.ExecuteReader();
+                    while (dbReader.Read())
+                    {
+                        res = dbReader.GetInt32(0).ToString();
+                    }
+                    dbReader.Close();
+                }
+                sqlConnection.Close();
+                return res;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
 

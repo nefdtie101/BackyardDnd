@@ -1,5 +1,6 @@
 ﻿using BackyardDndApi.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.CompilerServices;
 using Repository.Interface;
 
 namespace BackyardDndApi.Controllers
@@ -59,6 +60,14 @@ namespace BackyardDndApi.Controllers
         {
             var stats = _playerView.ShowSubStats(user);
             return Ok("This works \n" + stats);
+        }
+        
+        [HttpPost]
+        [Route("Roll")]
+        public IActionResult Roll(User user, int Roll, string Stat)
+        {
+            var RollOutput = _playerView.Roll(user, Roll, Stat);
+            return Ok("This works \n" + RollOutput);
         }
     }
 }
