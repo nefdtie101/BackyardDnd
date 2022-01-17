@@ -48,7 +48,7 @@ namespace BackyardDndApi.Controllers
         
         [HttpPost]
         [Route("Show Main Stats")]
-        public IActionResult ShowStats(User user)
+        public IActionResult ShowMainStats(User user)
         {
             var stats = _playerView.ShowMainStats(user);
             return Ok("This works \n" + stats);
@@ -56,7 +56,7 @@ namespace BackyardDndApi.Controllers
         
         [HttpPost]
         [Route("Show Sub Stats")]
-        public IActionResult ShowSub(User user)
+        public IActionResult ShowSubStats(User user)
         {
             var stats = _playerView.ShowSubStats(user);
             return Ok("This works \n" + stats);

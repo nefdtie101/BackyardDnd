@@ -82,7 +82,7 @@ namespace Database
             }
         }
         
-        public string ShowValue(string proc, string[] Target)
+        public string ShowValue(string proc, string[] Target, SqlParameter[] p)
         {
             try
             {
@@ -94,6 +94,7 @@ namespace Database
                     sqlConnection.Open();
                     SqlCommand sqlCommand = new SqlCommand(proc,sqlConnection);
                     sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddRange(p);
 
                     var dbReader = sqlCommand.ExecuteReader();
                     while (dbReader.Read())

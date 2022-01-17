@@ -27,7 +27,11 @@ namespace Repository.Repository
                 {
                     "EquipmentIDs"
                 };
-                var res = _dataBaseHelper.ShowValue("spShowItems", Target);
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserID", user.UserId.ToString())
+                };
+                var res = _dataBaseHelper.ShowValue("spShowItems", Target, dataParams);
                 var arrItems = res.Split(',');
 
                 return arrItems;
@@ -48,7 +52,11 @@ namespace Repository.Repository
                 {
                     "SpellsSkills"
                 };
-                var res = _dataBaseHelper.ShowValue("spShowSpells", Target);
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserID", user.UserId.ToString())
+                };
+                var res = _dataBaseHelper.ShowValue("spShowSpells", Target, dataParams);
                 var arrSpells = res.Split(',');
 
                 return arrSpells;
@@ -73,7 +81,13 @@ namespace Repository.Repository
                     "WIS",
                     "CHA"
                 };
-                var res = _dataBaseHelper.ShowValue("spShowMainStats", Target);
+                
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserID", user.UserId.ToString())
+                };
+                var res = _dataBaseHelper.ShowValue("spShowMainStats", Target, dataParams);
+                
 
                 return res;
             }
@@ -116,7 +130,11 @@ namespace Repository.Repository
                     "Performance",
                     "Persuasion"
                 };
-                var res = _dataBaseHelper.ShowValue("spShowSubStats", Target);
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@UserID", user.UserId.ToString())
+                };
+                var res = _dataBaseHelper.ShowValue("spShowSubStats", Target, dataParams);
 
                 return res;
             }
