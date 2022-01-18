@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using BackyardDndApi.Model;
 using Microsoft.AspNetCore.Authorization;
@@ -86,7 +87,9 @@ namespace BackyardDndApi.Controllers
         [Route("test")]
         public IActionResult Test()
         {
-            return Ok("fok");
+            var test = new Test();
+            test.test = "fatgfoakgdf";
+            return Ok(test);
         }
     }
 }
