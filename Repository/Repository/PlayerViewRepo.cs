@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Tracing;
 using System.Xml.Serialization;
 using BackyardDndApi.Model;
 using Database;
@@ -67,7 +68,7 @@ namespace Repository.Repository
                 throw;
             }
         }
-        public string ShowMainStats(User user)
+        public string[] ShowMainStats(User user)
         {
             
             try
@@ -87,9 +88,9 @@ namespace Repository.Repository
                     new SqlParameter("@UserID", user.UserId.ToString())
                 };
                 var res = _dataBaseHelper.ShowValue("spShowMainStats", Target, dataParams);
-                
+                var arrStats = res.Split(',');
 
-                return res;
+                return arrStats;
             }
             catch (Exception e)
             {
@@ -98,7 +99,7 @@ namespace Repository.Repository
             }
         }
         
-        public string ShowSubStats(User user)
+        public string[] ShowSubStats(User user)
         {
             
             try
@@ -135,8 +136,9 @@ namespace Repository.Repository
                     new SqlParameter("@UserID", user.UserId.ToString())
                 };
                 var res = _dataBaseHelper.ShowValue("spShowSubStats", Target, dataParams);
+                var arrStats = res.Split(',');
 
-                return res;
+                return arrStats;
             }
             catch (Exception e)
             {
@@ -145,7 +147,7 @@ namespace Repository.Repository
             }
         }
 
-        public string Roll(User user, int Roll, string Stat)
+        public Rolling Roll(User user, int Roll, string Stat)
         {
             try
             {
@@ -235,7 +237,15 @@ namespace Repository.Repository
                 {
                     FinalRoll = 1;
                 }
-                return "You rolled: " + rollOutput.ToString() + "\nYour " + Stat + " modifier: " + Modifier + "\nFinal Amount: " + FinalRoll.ToString();
+
+                Rolling rolling = new Rolling
+                {
+                    Roll = rollOutput,
+                    Modifier = Modifier,
+                    Final = FinalRoll
+                };
+
+                return rolling;
             }
             catch (Exception e)
             {

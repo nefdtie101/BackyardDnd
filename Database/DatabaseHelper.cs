@@ -99,11 +99,10 @@ namespace Database
                     var dbReader = sqlCommand.ExecuteReader();
                     while (dbReader.Read())
                     {
-                        
                         foreach (var word in Target)
                         {
                             var temp = dbReader[word].ToString();
-                            res = res + $"[{temp}]";
+                            res = res + $"{temp},";
                         }
                     }
                     dbReader.Close();

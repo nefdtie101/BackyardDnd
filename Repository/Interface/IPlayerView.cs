@@ -6,8 +6,8 @@ namespace Repository.Interface
     {
         public string[] ShowItems(User user);
         public string[] ShowSpells(User user);
-        public string ShowMainStats(User user);
-        public string ShowSubStats(User user);
-        public string Roll(User user, int Roll, string Stat);
+        public string[] ShowMainStats(User user);
+        public string[] ShowSubStats(User user);
+        public Rolling Roll(User user, int Roll, string Stat);
     }
 }
