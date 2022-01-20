@@ -84,5 +84,24 @@ namespace Repository.Repository
                 throw;
             }
         }
+
+        public void EditPlayer(User user, string stat, int newStat)
+        {
+            try
+            {
+                SqlParameter[] dataParams = new SqlParameter[]
+                {
+                    new SqlParameter("@idUser", user.UserId),
+                    new SqlParameter("@Stat", stat),
+                    new SqlParameter("@NewValue", newStat)
+                };
+                _dataBaseHelper.EditValue("spEditValue", dataParams);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

@@ -43,5 +43,13 @@ namespace BackyardDndApi.Controllers
             _dungeonMaster.WheatherTime(Time, Weather, campaign);
             return Ok("Time Updated");
         }
+        
+        [HttpPost]
+        [Route("Edit Player Stat")]
+        public IActionResult EditPlayer(User user, string stat, int newStat)
+        {
+            _dungeonMaster.EditPlayer(user, stat, newStat);
+            return Ok("Time Updated");
+        }
     }
 }

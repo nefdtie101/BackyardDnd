@@ -146,6 +146,36 @@ namespace Database
                 throw;
             }
         }
+        
+        public void EditValue(string proc, SqlParameter[] p)
+        {
+            try
+            {
+                var res = "";
+                SqlConnection sqlConnection = new SqlConnection(_configuration.GetConnectionString("Sql"));
+
+                using(sqlConnection)
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand(proc,sqlConnection);
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddRange(p);
+
+                    var dbReader = sqlCommand.ExecuteReader();
+                    while (dbReader.Read())
+                    {
+                        res = dbReader.ToString();
+                    }
+                    dbReader.Close();
+                }
+                sqlConnection.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }
 

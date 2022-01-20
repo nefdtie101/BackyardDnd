@@ -9,5 +9,6 @@ namespace Repository.Interface
         public void WheatherTime(string Time, string Weather, Campaign campaign);
         public void CreateCampaign(Campaign campaign);
         public string ViewCampaign(User user);
+        public void EditPlayer(User user, string stat, int newStat);
     }
 }
